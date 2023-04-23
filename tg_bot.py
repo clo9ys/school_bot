@@ -123,14 +123,28 @@ async def third_response(update, context):
 async def fourth_response(update, context):
     answer3 = update.message.text
     logger.info(answer3)
-    if answer3.lower() == 'программирование':
+    if answer3.lower() == 'да':
+        await update.message.reply_text('Выберите одну из секций.')
+
+    if answer3.lower() == 'нет':
+        await update.message.reply_text('Больше мне нечего вам предложить из нашего списка секций.')
+
+    else:
+        await update.message.reply_text('Ваш ответ некорректный,\n'
+                                        'Попробуйте еще раз')
+
+
+async def double_fourth_response(update, context):
+    answer44 = update.message.text
+    logger.info(answer44)
+    if answer44.lower() == 'программирование':
         await update.message.reply_text('Расписание занятий:\n'
                                         'Вт - 14:30-16:30\n'
                                         'Чт - 16:30-18:30\n'
                                         'Сб - 14:30-16:30')
         return ConversationHandler.END
 
-    if answer3.lower() == 'робототехника':
+    if answer44.lower() == 'робототехника':
         await update.message.reply_text('Расписание занятий:\n'
                                         'Пн - 14:30-16:30\n'
                                         'Ср - 16:30-18:30\n'
@@ -332,7 +346,8 @@ def main():
             # Функция читает ответ на второй вопрос и завершает диалог.
             2: [MessageHandler(filters.TEXT & ~filters.COMMAND, second_response)],
             3: [MessageHandler(filters.TEXT & ~filters.COMMAND, third_response)],
-            4: [MessageHandler(filters.TEXT & ~filters.COMMAND, fourth_response)]
+            4: [MessageHandler(filters.TEXT & ~filters.COMMAND, fourth_response)],
+            44: [MessageHandler(filters.TEXT & ~filters.COMMAND, double_fourth_response)]
         },
 
         # Точка прерывания диалога. В данном случае — команда /stop.
